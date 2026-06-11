@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ezra — Retirement Planning for the Whole Family</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+/* Hallmark · macrostructure: Split Studio · tone: soft-luxury · anchor hue: amber-warm
+ * genre: editorial · theme: Atelier-warm · nav: N5 floating pill · footer: Ft5 statement
+ * pre-emit critique: P5 H5 E4 S5 R5 V5
+ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  overflow-x: clip;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── LAYOUT ── */
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 var(--space-xl); }
+.section { padding: var(--space-5xl) 0; }
+
+/* ── FADE-IN ── */
+.fi {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
+}
+.fi.visible { opacity: 1; transform: translateY(0); }
+.fi-d1 { transition-delay: 100ms; }
+.fi-d2 { transition-delay: 200ms; }
+.fi-d3 { transition-delay: 300ms; }
+
+/* ── NAV — N5 Floating pill ── */
+.nav {
+  position: fixed;
+  top: var(--space-lg);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xl);
+  background: oklch(from var(--color-paper) l c h / 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: var(--space-sm) var(--space-lg);
+  box-shadow: 0 1px 3px var(--color-shadow-sm), 0 4px 16px var(--color-shadow-md);
+}
+.nav-wordmark {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 400;
+  font-style: normal;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+.nav-links {
+  display: flex;
+  gap: var(--space-xl);
+  list-style: none;
+}
+.nav-links a {
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.nav-links a:hover { color: var(--color-ink); }
+.nav-links a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; border-radius: 2px; }
+.nav-cta {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding: var(--space-xs) var(--space-lg);
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  white-space: nowrap;
+  transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+.nav-cta:hover { opacity: 0.82; transform: translateY(-1px); }
+.nav-cta:active { transform: translateY(0); opacity: 0.9; }
+.nav-cta:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+
+/* ── HERO ── */
+.hero {
+  padding-top: calc(var(--space-5xl) + 80px);
+  padding-bottom: var(--space-5xl);
+}
+.hero-split {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--space-4xl);
+  align-items: center;
+}
+.hero-eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-lg);
+}
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: 300;
+  font-style: normal;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  color: var(--color-ink);
+  margin-bottom: var(--space-xl);
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+.hero-sub {
+  font-size: var(--text-lg);
+  line-height: 1.65;
+  color: var(--color-ink-muted);
+  max-width: 440px;
+  margin-bottom: var(--space-xl);
+}
+.hero-pricing {
+  font-size: var(--text-sm);
+  color: var(--color-ink-faint);
+  margin-bottom: var(--space-2xl);
+}
+.hero-pricing strong { color: var(--color-ink-muted); font-weight: 500; }
+.hero-form {
+  display: flex;
+  gap: var(--space-sm);
+  max-width: 420px;
+}
+.input-field {
+  flex: 1;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  padding: 11px var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  outline: none;
+  transition: border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+}
+.input-field::placeholder { color: var(--color-ink-faint); }
+.input-field:hover { border-color: var(--color-rule); }
+.input-field:focus { border-color: var(--color-accent); box-shadow: 0 0 0 3px var(--color-accent-tint); }
+.input-field:focus-visible { outline: none; }
+.btn-primary {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding: 11px var(--space-xl);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+.btn-primary:hover { opacity: 0.82; transform: translateY(-1px); }
+.btn-primary:active { transform: translateY(0); opacity: 0.9; }
+.btn-primary:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+.btn-primary:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+/* Hero right — stat cards */
+.hero-stats { display: flex; flex-direction: column; gap: var(--space-md); }
+.stat-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl) var(--space-2xl);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
+}
+.stat-card.visible { opacity: 1; transform: translateY(0); }
+.stat-card.s2 { transition-delay: 130ms; }
+.stat-card.s3 { transition-delay: 260ms; }
+.stat-num {
+  font-family: var(--font-display);
+  font-size: var(--text-display-s);
+  font-weight: 300;
+  font-style: normal;
+  line-height: 1;
+  color: var(--color-ink);
+  margin-bottom: var(--space-xs);
+}
+.stat-label {
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+  line-height: 1.5;
+}
+
+/* ── FEATURES — alternating diptych ── */
+.features-wrap { padding: var(--space-5xl) 0; }
+.features-head {
+  margin-bottom: var(--space-4xl);
+  max-width: 560px;
+}
+.section-eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-md);
+}
+.section-headline {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: 300;
+  font-style: normal;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  margin-bottom: var(--space-md);
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+.section-body {
+  font-size: var(--text-base);
+  line-height: 1.75;
+  color: var(--color-ink-muted);
+}
+
+.feature-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4xl);
+  align-items: center;
+  padding: var(--space-4xl) 0;
+  border-top: 1px solid var(--color-border);
+}
+.feature-pair.flip .feature-text { order: 2; }
+.feature-pair.flip .feature-visual { order: 1; }
+
+.feature-stat {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+}
+.feature-stat-num {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 400;
+  font-style: normal;
+  color: var(--color-ink);
+  line-height: 1;
+}
+.feature-stat-label {
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+}
+.feature-body {
+  font-size: var(--text-base);
+  line-height: 1.75;
+  color: var(--color-ink-muted);
+  margin-top: var(--space-lg);
+}
+
+.feature-visual {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+}
+
+/* Trust flow steps */
+.flow-steps { display: flex; flex-direction: column; }
+.flow-step {
+  display: flex;
+  gap: var(--space-lg);
+  padding: var(--space-lg) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.flow-step:last-of-type { border-bottom: none; }
+.flow-step-num {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 300;
+  font-style: normal;
+  color: var(--color-ink-faint);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 1.75rem;
+  padding-top: 2px;
+}
+.flow-step-title {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-ink);
+  margin-bottom: 3px;
+}
+.flow-step-desc {
+  font-size: var(--text-xs);
+  color: var(--color-ink-muted);
+  line-height: 1.55;
+}
+.cost-compare {
+  display: flex;
+  gap: var(--space-2xl);
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+.cost-block {}
+.cost-amount {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1;
+  color: var(--color-ink);
+}
+.cost-amount.strike {
+  color: var(--color-ink-faint);
+  text-decoration: line-through;
+  text-decoration-color: var(--color-rule);
+}
+.cost-label {
+  font-size: var(--text-xs);
+  color: var(--color-ink-muted);
+  margin-top: 4px;
+}
+
+/* SMS preview card (no phone chrome) */
+.sms-card { display: flex; flex-direction: column; gap: var(--space-md); }
+.sms-label {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+  margin-bottom: var(--space-xs);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--color-border);
+}
+.sms-msg { display: flex; flex-direction: column; gap: 3px; }
+.sms-msg.right { align-items: flex-end; }
+.sms-sender {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+  padding: 0 var(--space-sm);
+}
+.sms-bubble {
+  font-size: var(--text-xs);
+  line-height: 1.6;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  max-width: 90%;
+}
+.sms-bubble.ezra {
+  background: var(--color-bubble-ezra);
+  color: var(--color-ink-muted);
+  border-radius: 3px var(--radius-md) var(--radius-md) var(--radius-md);
+}
+.sms-bubble.parent {
+  background: var(--color-bubble-parent);
+  color: var(--color-ink);
+  border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 3px;
+}
+.sms-bubble.child {
+  background: var(--color-bubble-child);
+  color: var(--color-ink);
+  border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 3px;
+}
+
+/* Monitoring list */
+.monitor-list { display: flex; flex-direction: column; }
+.monitor-item {
+  display: flex;
+  gap: var(--space-md);
+  padding: var(--space-lg) 0;
+  border-bottom: 1px solid var(--color-border);
+  align-items: flex-start;
+}
+.monitor-item:last-child { border-bottom: none; }
+.monitor-check {
+  color: var(--color-accent);
+  font-size: var(--text-base);
+  flex-shrink: 0;
+  margin-top: 1px;
+  font-weight: 500;
+}
+.monitor-title {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-ink);
+  margin-bottom: 2px;
+}
+.monitor-desc {
+  font-size: var(--text-xs);
+  color: var(--color-ink-muted);
+  line-height: 1.55;
+}
+.monitor-price {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+}
+.monitor-price strong { color: var(--color-ink); font-weight: 500; }
+
+/* ── PERSONAS ── */
+.personas-section {
+  background: var(--color-surface);
+  padding: var(--space-5xl) 0;
+}
+.personas-head {
+  text-align: center;
+  margin-bottom: var(--space-4xl);
+}
+.personas-head .section-headline { font-size: var(--text-display-s); }
+.personas-sub {
+  font-size: var(--text-lg);
+  color: var(--color-ink-muted);
+  max-width: 500px;
+  margin: var(--space-lg) auto 0;
+  line-height: 1.65;
+}
+.personas-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+}
+.persona-card {
+  background: var(--color-paper);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+}
+.persona-tag {
+  display: inline-block;
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  background: var(--color-accent-tint);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-pill);
+  margin-bottom: var(--space-lg);
+}
+.persona-name {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 300;
+  font-style: normal;
+  line-height: 1.1;
+  color: var(--color-ink);
+  margin-bottom: var(--space-xs);
+}
+.persona-desc {
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-xl);
+  border-bottom: 1px solid var(--color-border);
+}
+.persona-block-label {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-md);
+}
+.persona-block-label.problems { color: var(--color-ink-faint); }
+.persona-block-label.ezra-helps { color: var(--color-accent); }
+.persona-list { display: flex; flex-direction: column; gap: var(--space-sm); margin-bottom: var(--space-xl); }
+.persona-item {
+  display: flex;
+  gap: var(--space-md);
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+  line-height: 1.55;
+}
+.persona-item-icon { flex-shrink: 0; margin-top: 2px; color: var(--color-ink-faint); }
+.persona-item.benefit .persona-item-icon { color: var(--color-accent); }
+
+/* ── WAITLIST CTA ── */
+.waitlist-section {
+  padding: var(--space-5xl) 0;
+  text-align: center;
+}
+.waitlist-headline {
+  font-family: var(--font-display);
+  font-size: var(--text-display-s);
+  font-weight: 300;
+  font-style: normal;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  margin-bottom: var(--space-lg);
+  overflow-wrap: anywhere;
+}
+.waitlist-sub {
+  font-size: var(--text-lg);
+  color: var(--color-ink-muted);
+  max-width: 480px;
+  margin: 0 auto var(--space-2xl);
+  line-height: 1.65;
+}
+.waitlist-form {
+  display: flex;
+  gap: var(--space-sm);
+  max-width: 440px;
+  margin: 0 auto;
+}
+.waitlist-note {
+  margin-top: var(--space-md);
+  font-size: var(--text-xs);
+  color: var(--color-ink-faint);
+}
+
+/* ── FOOTER — Ft5 Statement ── */
+.footer {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-4xl) 0 var(--space-2xl);
+}
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-2xl);
+  margin-bottom: var(--space-3xl);
+  padding-bottom: var(--space-3xl);
+  border-bottom: 1px solid var(--color-border);
+}
+.footer-statement {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: 300;
+  font-style: normal;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  max-width: 580px;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+.btn-footer {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding: 11px var(--space-xl);
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+.btn-footer:hover { opacity: 0.82; }
+.btn-footer:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-xl);
+}
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 400;
+  font-style: normal;
+  color: var(--color-ink);
+}
+.footer-links {
+  display: flex;
+  gap: var(--space-xl);
+  list-style: none;
+}
+.footer-links a {
+  font-size: var(--text-xs);
+  color: var(--color-ink-faint);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.footer-links a:hover { color: var(--color-ink); }
+.footer-links a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; border-radius: 2px; }
+.footer-demos {
+  display: flex;
+  gap: var(--space-md);
+}
+.footer-demos a {
+  font-size: var(--text-xs);
+  color: var(--color-ink-faint);
+  text-decoration: none;
+  border: 1px solid var(--color-border);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-pill);
+  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+.footer-demos a:hover { color: var(--color-ink); border-color: var(--color-rule); }
+.footer-demos a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.footer-copy {
+  font-size: var(--text-xs);
+  color: var(--color-ink-faint);
+}
+
+/* ── TOAST ── */
+.toast {
+  position: fixed;
+  bottom: var(--space-xl);
+  left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  padding: var(--space-md) var(--space-2xl);
+  border-radius: var(--radius-pill);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+  z-index: 200;
+  white-space: nowrap;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+
+  .hero-split {
+    grid-template-columns: 1fr;
+    gap: var(--space-3xl);
+  }
+  .hero-headline { font-size: var(--text-display-s); }
+  .stat-num { font-size: var(--text-3xl); }
+
+  .feature-pair {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+  .feature-pair.flip .feature-text { order: unset; }
+  .feature-pair.flip .feature-visual { order: unset; }
+  .section-headline { font-size: var(--text-3xl); }
+  .features-head .section-headline { font-size: var(--text-3xl); }
+
+  .personas-grid { grid-template-columns: 1fr; }
+  .personas-head .section-headline { font-size: var(--text-3xl); }
+
+  .waitlist-form { flex-direction: column; }
+  .waitlist-headline { font-size: var(--text-3xl); }
+
+  .footer-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .footer-statement { font-size: var(--text-3xl); }
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-lg);
+  }
+}
+
+@media (max-width: 414px) {
+  .wrap { padding: 0 var(--space-lg); }
+  .hero-headline { font-size: var(--text-4xl); }
+  .hero-form { flex-direction: column; }
+  .footer-links { flex-wrap: wrap; gap: var(--space-md); }
+  .footer-demos { flex-wrap: wrap; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fi, .stat-card {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+  .fi.visible, .stat-card.visible { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV — N5 floating pill -->
+<nav class="nav" aria-label="Main navigation">
+  <a href="#" class="nav-wordmark">Ezra</a>
+  <ul class="nav-links">
+    <li><a href="#how-it-works">How it works</a></li>
+    <li><a href="#for-families">For families</a></li>
+  </ul>
+  <a href="#waitlist" class="nav-cta">Join waitlist</a>
+</nav>
+
+<!-- HERO — Split Studio -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-split">
+
+      <div class="hero-left">
+        <p class="hero-eyebrow fi">EZ Retirement AI</p>
+        <h1 class="hero-headline fi fi-d1">Peace of mind for every generation.</h1>
+        <p class="hero-sub fi fi-d2">Estate planning, Medicare optimization, and ongoing financial guidance for your parents and for you — finally affordable for the whole family.</p>
+        <p class="hero-pricing fi fi-d2">Starts at <strong>$19 / month.</strong> Trust generation from <strong>~$300.</strong></p>
+        <form class="hero-form fi fi-d3" id="hero-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <input class="input-field" type="email" name="email" placeholder="Your email address" required aria-label="Email address">
+          <button class="btn-primary" type="submit">Join waitlist</button>
+        </form>
+      </div>
+
+      <div class="hero-stats" aria-label="Key statistics">
+        <div class="stat-card">
+          <div class="stat-num">$84T</div>
+          <div class="stat-label">in boomer wealth changing hands — the largest intergenerational wealth transfer in history</div>
+        </div>
+        <div class="stat-card s2">
+          <div class="stat-num">10,000</div>
+          <div class="stat-label">Americans turning 65 every day for the next decade</div>
+        </div>
+        <div class="stat-card s3">
+          <div class="stat-num">1 in 3</div>
+          <div class="stat-label">families has any estate plan at all — most are fully exposed to probate</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="how-it-works" class="features-wrap">
+  <div class="wrap">
+
+    <div class="features-head fi">
+      <p class="section-eyebrow">How Ezra works</p>
+      <h2 class="section-headline">Three things your family needs. One place to handle them.</h2>
+    </div>
+
+    <!-- Trust generation -->
+    <div class="feature-pair">
+      <div class="feature-text fi">
+        <div class="feature-stat">
+          <span class="feature-stat-num">~$300</span>
+          <span class="feature-stat-label">vs. $3–7K through an attorney alone</span>
+        </div>
+        <p class="section-eyebrow">Trust generation</p>
+        <h3 class="section-headline">A draft trust in minutes, not months.</h3>
+        <p class="feature-body">Upload your parents' 1040-SR and Ezra identifies probate exposure, drafts a revocable trust, and routes it to an attorney for review. 60–70% of homeowning boomer households need one. Most don't have one yet — not from negligence, because no one ever made it easy to act.</p>
+      </div>
+      <div class="feature-visual fi fi-d1" aria-label="Trust generation flow">
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-num">1</div>
+            <div>
+              <div class="flow-step-title">Upload the 1040-SR</div>
+              <div class="flow-step-desc">One tax return contains 90%+ of the financial picture your family needs to act.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-num">2</div>
+            <div>
+              <div class="flow-step-title">Ezra scans for exposure</div>
+              <div class="flow-step-desc">Probate risk, beneficiary gaps, gifting opportunities, Medicare proximity — all surfaced in minutes.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-num">3</div>
+            <div>
+              <div class="flow-step-title">Attorney-reviewed trust generated</div>
+              <div class="flow-step-desc">A real revocable trust — reviewed, notarized, protecting your family's assets from probate.</div>
+            </div>
+          </div>
+        </div>
+        <div class="cost-compare">
+          <div class="cost-block">
+            <div class="cost-amount strike">$3–7K</div>
+            <div class="cost-label">Attorney alone</div>
+          </div>
+          <div class="cost-block">
+            <div class="cost-amount">~$300</div>
+            <div class="cost-label">Through Ezra</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Medicare management -->
+    <div class="feature-pair flip">
+      <div class="feature-text fi">
+        <div class="feature-stat">
+          <span class="feature-stat-num">$340+</span>
+          <span class="feature-stat-label">average annual savings from a single plan review</span>
+        </div>
+        <p class="section-eyebrow">Medicare management</p>
+        <h3 class="section-headline">One reply. Recurring savings, every year.</h3>
+        <p class="feature-body">Ezra monitors Medicare plans year-round, alerts your family before open enrollment closes, and switches plans in a single text. It also tracks IRMAA proximity — one dollar over the threshold can trigger a $2,000+ annual surcharge that most families never see coming.</p>
+      </div>
+      <div class="feature-visual fi fi-d1" aria-label="Medicare SMS scenario">
+        <div class="sms-card">
+          <div class="sms-label">Ezra · Family Group · Margaret, Linda</div>
+          <div class="sms-msg">
+            <div class="sms-sender">Ezra</div>
+            <div class="sms-bubble ezra">Hi Margaret — Medicare open enrollment closes Dec 7th. Your current Part D plan renews at $67/month. I found identical coverage at $39/month — saving you $340/year. Reply YES to switch, NO to keep your current plan.</div>
+          </div>
+          <div class="sms-msg right">
+            <div class="sms-sender">Margaret</div>
+            <div class="sms-bubble parent">YES</div>
+          </div>
+          <div class="sms-msg">
+            <div class="sms-sender">Ezra</div>
+            <div class="sms-bubble ezra">Switched. New plan starts Jan 1st. Linda has been notified. I'll check again next October.</div>
+          </div>
+          <div class="sms-msg right">
+            <div class="sms-sender">Linda</div>
+            <div class="sms-bubble child">$340/year for one text. Thanks Ezra.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Financial co-pilot -->
+    <div class="feature-pair">
+      <div class="feature-text fi">
+        <div class="feature-stat">
+          <span class="feature-stat-num">$180K</span>
+          <span class="feature-stat-label">average preventable loss per family from missed planning</span>
+        </div>
+        <p class="section-eyebrow">Financial co-pilot</p>
+        <h3 class="section-headline">Always on. For the whole family.</h3>
+        <p class="feature-body">RMD deadlines, Roth conversion windows, beneficiary designations, gifting exclusions — Ezra monitors these year-round and surfaces alerts before anything slips. Your parents get a simple text. You get a full dashboard. Everyone stays coordinated without anyone having to coordinate.</p>
+      </div>
+      <div class="feature-visual fi fi-d1" aria-label="Financial monitoring features">
+        <div class="monitor-list">
+          <div class="monitor-item">
+            <div class="monitor-check">→</div>
+            <div>
+              <div class="monitor-title">RMD deadline monitoring</div>
+              <div class="monitor-desc">25% IRS penalty if missed. Ezra flags it with enough time to act — before December, not on December 30th.</div>
+            </div>
+          </div>
+          <div class="monitor-item">
+            <div class="monitor-check">→</div>
+            <div>
+              <div class="monitor-title">Beneficiary alignment</div>
+              <div class="monitor-desc">Beneficiary designations override the will — silently. Ezra checks they still reflect your family structure.</div>
+            </div>
+          </div>
+          <div class="monitor-item">
+            <div class="monitor-check">→</div>
+            <div>
+              <div class="monitor-title">Annual gifting exclusions</div>
+              <div class="monitor-desc">$18K per person resets every January. Ezra surfaces unused exclusions before the year closes.</div>
+            </div>
+          </div>
+          <div class="monitor-item">
+            <div class="monitor-check">→</div>
+            <div>
+              <div class="monitor-title">IRMAA income proximity</div>
+              <div class="monitor-desc">One dollar over the threshold triggers a $2,016/year Medicare surcharge. Ezra warns before any distribution that could push you over.</div>
+            </div>
+          </div>
+        </div>
+        <div class="monitor-price">Ongoing monitoring from <strong>$19 / month.</strong></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PERSONAS — side by side -->
+<section id="for-families" class="personas-section">
+  <div class="wrap">
+
+    <div class="personas-head fi">
+      <p class="section-eyebrow">Built for both of you</p>
+      <h2 class="section-headline">Two interfaces. One family.</h2>
+      <p class="personas-sub">Ezra works across two generations — the parent navigating retirement and the adult child trying to help without overstepping.</p>
+    </div>
+
+    <div class="personas-grid">
+
+      <div class="persona-card fi fi-d1">
+        <div class="persona-tag">The parent</div>
+        <div class="persona-name">Margaret</div>
+        <div class="persona-desc">65 · Retired homeowner · Has assets, no plan</div>
+
+        <p class="persona-block-label problems">What weighs on her</p>
+        <ul class="persona-list" aria-label="Parent pain points">
+          <li class="persona-item">
+            <span class="persona-item-icon" aria-hidden="true">—</span>
+            Has a home and retirement accounts, but no trust — never knew where to start
+          </li>
+          <li class="persona-item">
+            <span class="persona-item-icon" aria-hidden="true">—</span>
+            Medicare decisions feel overwhelming and seem to change every year
+          </li>
+          <li class="persona-item">
+            <span class="persona-item-icon" aria-hidden="true">—</span>
+            Doesn't want to burden her kids, but can't navigate attorneys and advisors alone
+          </li>
+          <li class="persona-item">
+            <span class="persona-item-icon" aria-hidden="true">—</span>
+            Doesn't use apps — wants something that works how she already communicates
+          </li>
+        </ul>
+
+        <p class="persona-block-label ezra-helps">How Ezra helps</p>
+        <ul class="persona-list" aria-label="How Ezra helps the parent">
+          <li class="persona-item benefit">
+            <span class="persona-item-icon" aria-hidden="true">→</span>
+            Simple texts — no app to download, no portal to log into
+          </li>
+          <li class="persona-item benefit">
+            <span class="persona-item-icon" aria-hidden="true">→</span>
+            One-reply trust generation, Medicare switching, and financial alerts
+          </li>
+          <li class="persona-item benefit">
+            <span class="persona-item-icon" aria-hidden="true">→</span>
+            Everything visible to her daughter — never alone in a decision
+          </li>
+        </ul>
+      </div>
+
+      <div class="persona-card fi fi-d2">
+        <div class="persona-tag">The adult child</div>
+        <div class="persona-name">Linda</div>
+        <div class="persona-desc">48 · Working · Caring from a distance</div>
+
+        <p class="persona-block-label problems">What weighs on her</p>
+        <ul class="persona-list" aria-label="Adult child pain points">
+          <li class="persona-item">
+            <span class="persona-item-icon" aria-hidden="true">—</span>
+            Knows her parents need a trust, a Medicare review, and a financial check-up — has no idea how to coordinate it
+          </li>
+          <li class="persona-item">
+            <span class="persona-item-icon" aria-hidden="true">—</span>
+            Zero visibility into her parents' finances — something could slip and she'd never know
+          </li>
+          <li class="persona-item">
+            <span class="persona-item-icon" aria-hidden="true">—</span>
+            Too busy to become an expert, too uncomfortable to keep avoiding it
+          </li>
+          <li class="persona-item">
+            <span class="persona-item-icon" aria-hidden="true">—</span>
+            Doesn't want to pay $5–7K for an attorney until she understands what's actually needed
+          </li>
+        </ul>
+
+        <p class="persona-block-label ezra-helps">How Ezra helps</p>
+        <ul class="persona-list" aria-label="How Ezra helps the adult child">
+          <li class="persona-item benefit">
+            <span class="persona-item-icon" aria-hidden="true">→</span>
+            Full dashboard showing her parents' financial picture in one place
+          </li>
+          <li class="persona-item benefit">
+            <span class="persona-item-icon" aria-hidden="true">→</span>
+            Notified of every action — trusts, Medicare switches, IRMAA alerts — before they happen
+          </li>
+          <li class="persona-item benefit">
+            <span class="persona-item-icon" aria-hidden="true">→</span>
+            Ezra handles coordination — no more nagging, no more guessing, no more guilt
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WAITLIST CTA -->
+<section id="waitlist" class="waitlist-section">
+  <div class="wrap">
+    <h2 class="waitlist-headline fi">Ready to give your family a plan?</h2>
+    <p class="waitlist-sub fi fi-d1">Join the waitlist. We'll reach out when Ezra is ready for your family.</p>
+    <form class="waitlist-form fi fi-d2" id="waitlist-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <input class="input-field" type="email" name="email" placeholder="Your email address" required aria-label="Email address">
+      <button class="btn-primary" type="submit">Join waitlist</button>
+    </form>
+    <p class="waitlist-note fi fi-d3">No spam. No pitch deck. Just a heads-up when we're ready.</p>
+  </div>
+</section>
+
+<!-- FOOTER — Ft5 Statement -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top fi">
+      <p class="footer-statement">Finally, a plan the whole family can trust.</p>
+      <a href="#waitlist" class="btn-footer">Join waitlist</a>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-brand">Ezra</div>
+      <div class="footer-demos" aria-label="Demo links">
+        <a href="discovery.html">Discovery demo</a>
+        <a href="deck.html">Pitch deck</a>
+      </div>
+      <ul class="footer-links" aria-label="Footer links">
+        <li><a href="mailto:baishi@gmail.com">Contact</a></li>
+        <li><a href="#">Privacy</a></li>
+      </ul>
+      <p class="footer-copy">© 2026 Ezra</p>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+// Fade-in on scroll
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fi').forEach(el => io.observe(el));
+
+// Stat card stagger (hero)
+const cardIO = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); cardIO.unobserve(e.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.stat-card').forEach(el => cardIO.observe(el));
+
+// Toast helper
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3800);
+}
+
+// Waitlist form handler (Formspree AJAX + fake fallback)
+function handleForm(form) {
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = form.querySelector('button[type="submit"]');
+    const email = form.querySelector('input[type="email"]').value;
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    const formId = form.action.split('/').pop();
+
+    if (formId === 'YOUR_FORM_ID') {
+      // Fake success for demo
+      await new Promise(r => setTimeout(r, 800));
+      showToast('You\'re on the list — we\'ll be in touch.');
+      form.reset();
+    } else {
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        if (res.ok) {
+          showToast('You\'re on the list — we\'ll be in touch.');
+          form.reset();
+        } else {
+          showToast('Something went wrong. Try again.');
+        }
+      } catch {
+        showToast('Something went wrong. Try again.');
+      }
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Join waitlist';
+  });
+}
+
+document.querySelectorAll('form').forEach(handleForm);
+</script>
+</body>
+</html>

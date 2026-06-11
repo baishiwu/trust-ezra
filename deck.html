@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ezra — Easy Retirement AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f4f0;
+    --grey-1: #1a1a1a;
+    --grey-2: #2e2e2e;
+    --grey-3: #555;
+    --grey-4: #888;
+    --grey-5: #bbb;
+    --grey-6: #ddd;
+    --grey-7: #ebebeb;
+    --accent: #1a1a1a;
+    --blue-dark: #1d3461;
+    --blue-light: #8ab4d0;
+    --slide-w: 960px;
+    --slide-h: 540px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #111;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'DM Mono', monospace;
+    padding: 40px 20px;
+    gap: 16px;
+  }
+
+  /* NAV */
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    color: var(--blue-light);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .nav button {
+    background: none;
+    border: 1px solid #333;
+    color: var(--blue-light);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    padding: 6px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .nav button:hover { border-color: #888; color: #ccc; }
+
+  #slide-counter { min-width: 60px; text-align: center; }
+
+  /* SLIDE WRAPPER */
+  .deck {
+    width: var(--slide-w);
+    height: var(--slide-h);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    background: var(--white);
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .slide.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  /* ─── SLIDE LAYOUTS ─── */
+
+  /* slide inner padding */
+  .s-inner {
+    padding: 56px 64px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--blue-dark);
+    margin-bottom: 28px;
+  }
+
+  .display {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 72px;
+    line-height: 1.0;
+    color: var(--black);
+    letter-spacing: -0.02em;
+  }
+
+  .display em {
+    font-style: normal;
+    color: var(--blue-dark);
+  }
+
+  .headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 42px;
+    line-height: 1.15;
+    color: var(--black);
+    letter-spacing: -0.01em;
+  }
+
+  .headline em { font-style: normal; color: var(--blue-dark); }
+
+  .subhead {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--blue-dark);
+    letter-spacing: 0.02em;
+    margin-top: 24px;
+    max-width: 540px;
+  }
+
+  .rule {
+    width: 40px;
+    height: 1px;
+    background: var(--grey-5);
+    margin: 32px 0;
+  }
+
+  /* SLIDE 1 — COVER */
+  #s1 {
+    background: var(--black);
+  }
+  #s1 .s-inner {
+    justify-content: space-between;
+  }
+  #s1 .display {
+    color: var(--white);
+    font-size: 80px;
+  }
+  #s1 .display em { color: var(--blue-light); }
+  #s1 .tagline {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--blue-light);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  #s1 .corner {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: #333;
+    letter-spacing: 0.1em;
+    position: absolute;
+    bottom: 40px;
+    right: 64px;
+  }
+
+  /* TWO-COL layout */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100%;
+  }
+  .two-col .left {
+    padding: 56px 48px 56px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--grey-6);
+  }
+  .two-col .right {
+    padding: 56px 64px 56px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* STAT BLOCKS */
+  .stat-block {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .stat {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--black);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--blue-dark);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.5;
+    max-width: 200px;
+  }
+
+  /* BULLET LIST */
+  .mono-list {
+    list-style: none;
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .mono-list li {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--blue-dark);
+    letter-spacing: 0.02em;
+    line-height: 1.6;
+    padding-left: 16px;
+    position: relative;
+  }
+  .mono-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--blue-dark);
+  }
+
+  /* CALLOUT BOX */
+  .callout {
+    border: 1px solid var(--grey-6);
+    padding: 20px 24px;
+    margin-top: 28px;
+  }
+  .callout-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--blue-dark);
+    margin-bottom: 8px;
+  }
+  .callout-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--black);
+    line-height: 1.4;
+  }
+
+  /* DARK PANEL */
+  .dark-panel {
+    background: var(--black);
+  }
+  .dark-panel .headline,
+  .dark-panel .display { color: var(--white); }
+  .dark-panel .headline em,
+  .dark-panel .display em { color: var(--blue-light); }
+  .dark-panel .subhead { color: var(--blue-light); }
+  .dark-panel .eyebrow { color: var(--blue-light); }
+  .dark-panel .mono-list li { color: var(--blue-light); }
+  .dark-panel .mono-list li::before { color: var(--blue-light); }
+  .dark-panel .stat-num { color: var(--white); }
+  .dark-panel .stat-label { color: var(--blue-light); }
+  .dark-panel .rule { background: #333; }
+
+  /* SLIDE 9 — ECONOMICS INTERACTIVE */
+  #s9 { background: var(--white); }
+  #s9 .s-inner { padding: 40px 64px; justify-content: flex-start; }
+
+  .econ-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 28px;
+  }
+
+  .econ-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .slider-block { display: flex; flex-direction: column; gap: 8px; }
+
+  .slider-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .slider-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue-dark);
+  }
+  .slider-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    color: var(--black);
+  }
+
+  input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 1px;
+    background: var(--grey-5);
+    outline: none;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background: var(--black);
+    cursor: pointer;
+    border-radius: 0;
+  }
+
+  .econ-output {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid var(--grey-6);
+    padding-left: 32px;
+    gap: 20px;
+  }
+
+  .arr-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .arr-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--blue-dark);
+  }
+  .arr-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--black);
+    line-height: 1;
+    transition: all 0.3s;
+  }
+  .arr-families {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--blue-dark);
+    margin-top: 2px;
+  }
+
+  .arr-bar {
+    height: 2px;
+    background: var(--grey-6);
+    margin-top: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+  .arr-bar-fill {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    background: var(--black);
+    transition: width 0.4s ease;
+  }
+
+  /* SLIDE NUMBER */
+  .slide-num {
+    position: absolute;
+    bottom: 20px;
+    right: 28px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--grey-5);
+    letter-spacing: 0.1em;
+  }
+  #s1 .slide-num { color: #333; }
+
+  /* PROGRESS BAR */
+  .progress-bar {
+    width: var(--slide-w);
+    height: 2px;
+    background: #222;
+    position: relative;
+  }
+  .progress-fill {
+    height: 100%;
+    background: #444;
+    transition: width 0.4s ease;
+  }
+
+  /* SMS MOCKUP */
+  .sms-thread {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .sms-msg {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    line-height: 1.6;
+    padding: 10px 14px;
+    max-width: 85%;
+    letter-spacing: 0.01em;
+  }
+  .sms-msg.ezra {
+    background: var(--grey-7);
+    color: var(--blue-dark);
+    align-self: flex-start;
+  }
+  .sms-msg.user {
+    background: var(--black);
+    color: #ccc;
+    align-self: flex-end;
+  }
+  .sms-sender {
+    font-size: 8px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue-dark);
+    margin-bottom: 2px;
+  }
+  .sms-wrapper { display: flex; flex-direction: column; }
+  .sms-wrapper.right { align-items: flex-end; }
+
+</style>
+</head>
+<body>
+
+<!-- PROGRESS -->
+<div class="progress-bar" style="width:var(--slide-w)">
+  <div class="progress-fill" id="progress" style="width:11.1%"></div>
+</div>
+
+<!-- DECK -->
+<div class="deck">
+
+  <!-- S1: COVER -->
+  <div class="slide active" id="s1">
+    <div class="s-inner">
+      <div class="tagline">Confidential — Last updated May 2026</div>
+      <div class="display"><em>Ezra</em></div>
+      <div style="margin-top:16px">
+        <div style="font-family:'DM Mono',monospace;font-size:13px;color:var(--blue-light);letter-spacing:0.08em;line-height:1.8">
+          Easy retirement AI<br>for aging America.
+        </div>
+      </div>
+    </div>
+    <div class="corner">EZ Retirement AI</div>
+    <div class="slide-num">01 / 09</div>
+  </div>
+
+  <!-- S2: THE MOMENT -->
+  <div class="slide" id="s2">
+    <div class="two-col">
+      <div class="left">
+        <div class="eyebrow">The Moment</div>
+        <div class="headline">The largest wealth<br>transfer in history<br><em>is happening now.</em></div>
+      </div>
+      <div class="right">
+        <div class="stat-block">
+          <div class="stat">
+            <div class="stat-num">10,000</div>
+            <div class="stat-label">Americans turning 65 every day for the next decade</div>
+          </div>
+          <div class="rule"></div>
+          <div class="stat">
+            <div class="stat-num">$80T</div>
+            <div class="stat-label">in boomer wealth — the largest intergenerational concentration in history</div>
+          </div>
+          <div class="rule"></div>
+          <div class="stat">
+            <div class="stat-num">$180K</div>
+            <div class="stat-label">average family loss from preventable tax and planning errors over retirement years</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-num">02 / 09</div>
+  </div>
+
+  <!-- S3: WHY NOW -->
+  <div class="slide dark-panel" id="s3">
+    <div class="s-inner">
+      <div class="eyebrow">Why Now</div>
+      <div class="headline">These were always<br>high-value services.<br><em>They were never profitable at scale.</em></div>
+      <div class="subhead">
+        Medicare optimization, estate document drafting, withdrawal sequencing — the human labor cost always exceeded what most families would pay. LLMs flip the unit economics entirely. Services that required a $400/hr attorney or a $2,000/yr advisor now cost cents to deliver. The unlock isn't AI hype. It's a structural shift in cost structure.
+      </div>
+    </div>
+    <div class="slide-num">03 / 09</div>
+  </div>
+
+  <!-- S4: ESTATE / TRUST — THE HOOK -->
+  <div class="slide" id="s4">
+    <div class="two-col">
+      <div class="left">
+        <div class="eyebrow">Revenue Layer 01 — The Hook</div>
+        <div class="headline">Wealth transfer.<br><em>Optimizing what<br>$80T passes on.</em></div>
+        <div class="callout">
+          <div class="callout-label">The gap</div>
+          <div class="callout-body">60–70% of homeowning boomer households benefit from a trust over a will. Only 30% have one. A revocable trust costs $3,000–7,000 from an attorney. Upload a tax return. Get a draft trust in minutes.</div>
+        </div>
+      </div>
+      <div class="right">
+        <ul class="mono-list">
+          <li><strong>Trust structuring</strong> — upload a 1040-SR and Ezra extracts the family's financial picture, identifies probate exposure, and generates a draft trust. Attorney reviews and closes. ~$300 direct fee vs. $3K–7K from an attorney.</li>
+          <li><strong>Account setup</strong> — 529s, UTMAs, DAFs, QCDs. Ezra identifies the gap, opens the account, earns the custodian referral. RIA registration converts this to a full advisory relationship at Series A.</li>
+          <li><strong>Beneficiary gaps &amp; document staleness</strong> — designations override the will entirely. Ezra cross-references family structure and flags mismatches. Pure subscription value.</li>
+          <li><strong>Later stage</strong> — Medicaid asset protection planning, irrevocable trust structures, special needs trusts routed to specialist counsel.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="slide-num">04 / 09</div>
+  </div>
+
+  <!-- S5: MEDICARE -->
+  <div class="slide" id="s5">
+    <div class="two-col">
+      <div class="left">
+        <div class="eyebrow">Revenue Layer 02</div>
+        <div class="headline">Medicare.<br><em>Pure savings.<br>No cost. No conflict.</em></div>
+        <div class="callout">
+          <div class="callout-label">The alignment</div>
+          <div class="callout-body">Ezra earns a broker commission paid by the carrier at open enrollment — with full incentive to optimize. The family saves. The carrier pays. Ezra earns.</div>
+        </div>
+      </div>
+      <div class="right">
+        <ul class="mono-list">
+          <li><strong>Open enrollment execution</strong> — Oct 15–Dec 7, annual plan comparison, switch executed in one reply. $100–200 broker commission, carrier-paid, recurring every year.</li>
+          <li><strong>Medicaid &amp; LIS enrollment</strong> — many beneficiaries qualify for Low Income Subsidy ("Extra Help") reducing Part D premiums and copays significantly. No commission — pure mission alignment.</li>
+          <li><strong>IRMAA monitoring</strong> — income proximity tracking year-round. One dollar over threshold = $2,000+ annual surcharge. Ezra watches so the family doesn't have to.</li>
+          <li><strong>Later stage</strong> — Part D formulary optimization as prescriptions evolve; Advantage vs. supplement reassessment when health status shifts.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="slide-num">05 / 09</div>
+  </div>
+
+  <!-- S6: SUBSCRIPTION -->
+  <div class="slide" id="s6">
+    <div class="s-inner" style="max-width:800px">
+      <div class="eyebrow">The Retention Anchor</div>
+      <div class="headline">Always-on monitoring.<br><em>Value is ambient — not episodic.</em></div>
+      <div class="rule"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
+        <ul class="mono-list">
+          <li>Subscription and bill drift detection</li>
+          <li>Fraud and scam monitoring — highest-risk demographic for account takeover</li>
+          <li>IRMAA income proximity tracking</li>
+          <li>RMD deadline management</li>
+        </ul>
+        <ul class="mono-list">
+          <li>Beneficiary and document staleness alerts</li>
+          <li>Cash flow anomaly detection</li>
+          <li>Savings rate optimization — HYSA, T-bill alternatives</li>
+          <li>Social Security annual reassessment</li>
+        </ul>
+      </div>
+      <div class="callout" style="margin-top:32px">
+        <div class="callout-label">The logic</div>
+        <div class="callout-body">Families keep paying even in months with no urgent action. The subscription is the floor — not the ceiling. $29/month.</div>
+      </div>
+    </div>
+    <div class="slide-num">06 / 09</div>
+  </div>
+
+  <!-- S7: INTERFACE -->
+  <div class="slide" id="s7">
+    <div class="two-col">
+      <div class="left">
+        <div class="eyebrow">The Interface Advantage</div>
+        <div class="headline">SMS for parents.<br>Dashboard for<br><em>the beneficiaries.</em></div>
+        <div class="subhead" style="margin-top:20px;font-size:11px">
+          The adult child (45–55, digitally native) is the entry point — they upload the tax return, review the trust draft, and decide when to bring the parent in. The SMS layer deepens the relationship once trust is established, not before. The millennial who saves their parents $8,400 in year one tells everyone they know. That's the viral loop.
+        </div>
+      </div>
+      <div class="right" style="padding-top:40px">
+        <div class="eyebrow" style="margin-bottom:16px">A real interaction</div>
+        <div class="sms-thread">
+          <div class="sms-wrapper">
+            <div class="sms-sender">Ezra</div>
+            <div class="sms-msg ezra">Hi Margaret — your Medicare Part D plan renews Dec 1st. I found a plan with identical coverage saving $340/year. Your daughter Linda can see this message too. Reply YES to switch, NO to keep your current plan.</div>
+          </div>
+          <div class="sms-wrapper right">
+            <div class="sms-sender" style="text-align:right">Margaret</div>
+            <div class="sms-msg user">YES</div>
+          </div>
+          <div class="sms-wrapper">
+            <div class="sms-sender">Ezra</div>
+            <div class="sms-msg ezra">Done. New plan starts Jan 1st. Confirmation sent to your email. Linda has been notified.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-num">07 / 09</div>
+  </div>
+
+  <!-- S8: MOAT -->
+  <div class="slide dark-panel" id="s8">
+    <div class="two-col">
+      <div class="left dark-panel" style="border-right-color:#222">
+        <div class="eyebrow">The Moat</div>
+        <div class="headline" style="font-size:34px">Licensed infrastructure<br>compounds in ways<br><em>software cannot.</em></div>
+        <div class="subhead" style="margin-top:24px">
+          Pure software competitors can copy a dashboard. Nobody can quickly replicate years of carrier relationships, brokerage arrangements, and licensed infrastructure.
+        </div>
+      </div>
+      <div class="right dark-panel">
+        <ul class="mono-list" style="gap:18px">
+          <li><strong style="color:#aaa">Medicare broker licensing</strong> — top 10 states cover ~60% of Medicare Advantage enrollment. Proprietary carrier data yields better recommendations.</li>
+          <li><strong style="color:#aaa">RIA registration</strong> — makes withdrawal sequencing and Roth conversion recommendations legally clean.</li>
+          <li><strong style="color:#aaa">Custodial relationships</strong> — unlocks float revenue on balance transfers. HYSA optimization becomes a revenue line.</li>
+          <li><strong style="color:#aaa">The compounding logic</strong> — more enrollments → better carrier terms → better plan data → better recommendations → more enrollments.</li>
+          <li><strong style="color:#aaa">Shortcut</strong> — acquire a small licensed Medicare brokerage or independent RIA rather than build from scratch. Licensed book + AI transformation of legacy pipeline.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="slide-num">08 / 09</div>
+  </div>
+
+  <!-- S9: ECONOMICS -->
+  <div class="slide" id="s9">
+    <div class="s-inner">
+      <div class="eyebrow">The Economics</div>
+      <div class="headline" style="font-size:32px">Three revenue lines.<br><em>Tune the mix.</em></div>
+      <div class="econ-grid">
+        <div class="econ-controls">
+          <div class="slider-block">
+            <div class="slider-label">
+              <span class="slider-name">Families</span>
+              <span class="slider-val" id="fam-val">10,000</span>
+            </div>
+            <input type="range" id="fam" min="1000" max="100000" step="1000" value="10000">
+          </div>
+          <div class="slider-block">
+            <div class="slider-label">
+              <span class="slider-name">Subscription ($29/mo)</span>
+              <span class="slider-val" id="sub-pct-val">70%</span>
+            </div>
+            <input type="range" id="sub-pct" min="0" max="100" step="5" value="70">
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--blue-dark);margin-top:4px">% of families paying</div>
+          </div>
+          <div class="slider-block">
+            <div class="slider-label">
+              <span class="slider-name">Medicare enrolled</span>
+              <span class="slider-val" id="med-pct-val">40%</span>
+            </div>
+            <input type="range" id="med-pct" min="0" max="100" step="5" value="40">
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--blue-dark);margin-top:4px">$150 avg broker fee/yr</div>
+          </div>
+          <div class="slider-block">
+            <div class="slider-label">
+              <span class="slider-name">One-off services</span>
+              <span class="slider-val" id="one-pct-val">15%</span>
+            </div>
+            <input type="range" id="one-pct" min="0" max="50" step="5" value="15">
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--blue-dark);margin-top:4px">$300 avg (trusts, referrals)</div>
+          </div>
+        </div>
+
+        <div class="econ-output">
+          <div class="arr-row">
+            <div class="arr-label">Subscription ARR</div>
+            <div class="arr-value" id="sub-arr">$2.4M</div>
+            <div class="arr-bar"><div class="arr-bar-fill" id="sub-bar" style="width:0%"></div></div>
+          </div>
+          <div class="arr-row">
+            <div class="arr-label">Medicare broker ARR</div>
+            <div class="arr-value" id="med-arr">$600K</div>
+            <div class="arr-bar"><div class="arr-bar-fill" id="med-bar" style="width:0%"></div></div>
+          </div>
+          <div class="arr-row">
+            <div class="arr-label">One-off services</div>
+            <div class="arr-value" id="one-arr">$450K</div>
+            <div class="arr-bar"><div class="arr-bar-fill" id="one-bar" style="width:0%"></div></div>
+          </div>
+          <div style="border-top:1px solid var(--grey-6);padding-top:16px;margin-top:4px">
+            <div class="arr-label">Total ARR</div>
+            <div class="arr-value" id="total-arr" style="font-size:48px">$3.45M</div>
+            <div class="arr-families" id="total-note">~10,000 families</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-num">09 / 09</div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- NAV -->
+<div class="nav">
+  <button onclick="go(-1)">← prev</button>
+  <span id="slide-counter">01 / 09</span>
+  <button onclick="go(1)">next →</button>
+</div>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+
+  function go(dir) {
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(total - 1, current + dir));
+    slides[current].classList.add('active');
+    document.getElementById('slide-counter').textContent =
+      String(current + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+    document.getElementById('progress').style.width = ((current + 1) / total * 100) + '%';
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(-1);
+  });
+
+  // ECONOMICS CALCULATOR
+  function fmt(n) {
+    if (n >= 1000000) return '$' + (n / 1000000).toFixed(2).replace(/\.?0+$/, '') + 'M';
+    if (n >= 1000) return '$' + Math.round(n / 1000) + 'K';
+    return '$' + n;
+  }
+
+  function calcEcon() {
+    const fam = parseInt(document.getElementById('fam').value);
+    const subPct = parseInt(document.getElementById('sub-pct').value) / 100;
+    const medPct = parseInt(document.getElementById('med-pct').value) / 100;
+    const onePct = parseInt(document.getElementById('one-pct').value) / 100;
+
+    document.getElementById('fam-val').textContent = fam.toLocaleString();
+    document.getElementById('sub-pct-val').textContent = Math.round(subPct * 100) + '%';
+    document.getElementById('med-pct-val').textContent = Math.round(medPct * 100) + '%';
+    document.getElementById('one-pct-val').textContent = Math.round(onePct * 100) + '%';
+
+    const subArr = fam * subPct * 29 * 12;
+    const medArr = fam * medPct * 150;
+    const oneArr = fam * onePct * 300;
+    const totalArr = subArr + medArr + oneArr;
+    const maxArr = totalArr || 1;
+
+    document.getElementById('sub-arr').textContent = fmt(subArr);
+    document.getElementById('med-arr').textContent = fmt(medArr);
+    document.getElementById('one-arr').textContent = fmt(oneArr);
+    document.getElementById('total-arr').textContent = fmt(totalArr);
+    document.getElementById('total-note').textContent = '~' + fam.toLocaleString() + ' families';
+
+    document.getElementById('sub-bar').style.width = (subArr / maxArr * 100) + '%';
+    document.getElementById('med-bar').style.width = (medArr / maxArr * 100) + '%';
+    document.getElementById('one-bar').style.width = (oneArr / maxArr * 100) + '%';
+  }
+
+  ['fam', 'sub-pct', 'med-pct', 'one-pct'].forEach(id => {
+    document.getElementById(id).addEventListener('input', calcEcon);
+  });
+
+  calcEcon();
+</script>
+</body>
+</html>
