@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ezra — Retirement Planning for the Whole Family</title>
+<title>Ezra, Retirement Planning for the Whole Family</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -41,7 +41,7 @@ html, body {
 .fi-d2 { transition-delay: 200ms; }
 .fi-d3 { transition-delay: 300ms; }
 
-/* ── NAV — N5 Floating pill ── */
+/* ── NAV, N5 Floating pill ── */
 .nav {
   position: fixed;
   top: var(--space-lg);
@@ -184,7 +184,7 @@ html, body {
 .btn-primary:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
 
-/* Hero right — stat cards */
+/* Hero right, stat cards */
 .hero-stats { display: flex; flex-direction: column; gap: var(--space-md); }
 .stat-card {
   background: var(--color-surface);
@@ -213,11 +213,11 @@ html, body {
   line-height: 1.5;
 }
 
-/* ── FEATURES — alternating diptych ── */
+/* ── FEATURES, alternating diptych ── */
 .features-wrap { padding: var(--space-5xl) 0; }
 .features-head {
-  margin-bottom: var(--space-4xl);
-  max-width: 560px;
+  margin-bottom: var(--space-xl);
+  text-align: center;
 }
 .section-eyebrow {
   font-family: var(--font-body);
@@ -287,6 +287,25 @@ html, body {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: var(--space-2xl);
+}
+.visual-stat {
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--color-border);
+}
+.visual-stat-num {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 400;
+  font-style: normal;
+  color: var(--color-ink);
+  line-height: 1;
+  display: block;
+  margin-bottom: 4px;
+}
+.visual-stat-label {
+  font-size: var(--text-xs);
+  color: var(--color-ink-muted);
 }
 
 /* Trust flow steps */
@@ -509,6 +528,7 @@ html, body {
 .waitlist-section {
   padding: var(--space-5xl) 0;
   text-align: center;
+  background: var(--color-surface);
 }
 .waitlist-headline {
   font-family: var(--font-display);
@@ -540,10 +560,11 @@ html, body {
   color: var(--color-ink-faint);
 }
 
-/* ── FOOTER — Ft5 Statement ── */
+/* ── FOOTER ── */
 .footer {
   border-top: 1px solid var(--color-border);
-  padding: var(--space-4xl) 0 var(--space-2xl);
+  padding: var(--space-2xl) 0;
+  text-align: center;
 }
 .footer-top {
   display: flex;
@@ -708,7 +729,7 @@ html, body {
 </head>
 <body>
 
-<!-- NAV — N5 floating pill -->
+<!-- NAV, N5 floating pill -->
 <nav class="nav" aria-label="Main navigation">
   <a href="#" class="nav-wordmark">Ezra</a>
   <ul class="nav-links">
@@ -718,15 +739,15 @@ html, body {
   <a href="#waitlist" class="nav-cta">Join waitlist</a>
 </nav>
 
-<!-- HERO — Split Studio -->
+<!-- HERO, Split Studio -->
 <section class="hero">
   <div class="wrap">
     <div class="hero-split">
 
       <div class="hero-left">
-        <p class="hero-eyebrow fi">EZ Retirement AI</p>
-        <h1 class="hero-headline fi fi-d1">Meet Ezra.</h1>
-        <p class="hero-sub fi fi-d2">Estate planning, Medicare optimization, and ongoing financial guidance for your parents and for you — finally affordable for the whole family.</p>
+        <p class="hero-eyebrow fi">Meet Ezra</p>
+        <h1 class="hero-headline fi fi-d1">Peace of mind for every generation.</h1>
+        <p class="hero-sub fi fi-d2">Estate planning, Medicare optimization, and ongoing financial guidance for your parents and for you, finally affordable for the whole family.</p>
         <p class="hero-pricing fi fi-d2">Starts at <strong>$29 / month.</strong></p>
         <form class="hero-form fi fi-d3" id="hero-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
           <input class="input-field" type="email" name="email" placeholder="Your email address" required aria-label="Email address">
@@ -737,7 +758,7 @@ html, body {
       <div class="hero-stats" aria-label="Key statistics">
         <div class="stat-card">
           <div class="stat-num">$84T</div>
-          <div class="stat-label">in boomer wealth changing hands — the largest intergenerational wealth transfer in history</div>
+          <div class="stat-label">in boomer wealth changing hands, the largest intergenerational wealth transfer in history</div>
         </div>
         <div class="stat-card s2">
           <div class="stat-num">10,000</div>
@@ -745,8 +766,108 @@ html, body {
         </div>
         <div class="stat-card s3">
           <div class="stat-num">1 in 3</div>
-          <div class="stat-label">families has any estate plan at all — most are fully exposed to probate</div>
+          <div class="stat-label">families has any estate plan at all, most are fully exposed to probate</div>
         </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PERSONAS, side by side -->
+<section id="for-families" class="personas-section">
+  <div class="wrap">
+
+    <div class="personas-head fi">
+      <p class="section-eyebrow">Built for both of you</p>
+      <h2 class="section-headline">Two interfaces. One family.</h2>
+      <p class="personas-sub">Ezra works across two generations, the parent navigating retirement and the adult child trying to help without overstepping.</p>
+    </div>
+
+    <div class="personas-grid">
+
+      <div class="persona-card fi fi-d1">
+        <div class="persona-tag">The parent</div>
+        <div class="persona-name">Elena</div>
+        <div class="persona-desc">65 · Retired homeowner · Has assets, no plan</div>
+
+        <p class="persona-block-label problems">What weighs on her</p>
+        <ul class="persona-list" aria-label="Parent pain points">
+          <li class="persona-item">
+            <span class="persona-item-icon" aria-hidden="true">→</span>
+            Has a home and retirement accounts, but no trust, never knew where to start
+          </li>
+          <li class="persona-item">
+            <span class="persona-item-icon" aria-hidden="true">→</span>
+            Medicare decisions feel overwhelming and seem to change every year
+          </li>
+          <li class="persona-item">
+            <span class="persona-item-icon" aria-hidden="true">→</span>
+            Doesn't want to burden her kids, but can't navigate attorneys and advisors alone
+          </li>
+          <li class="persona-item">
+            <span class="persona-item-icon" aria-hidden="true">→</span>
+            Doesn't use apps, wants something that works how she already communicates
+          </li>
+        </ul>
+
+        <p class="persona-block-label ezra-helps">How Ezra helps</p>
+        <ul class="persona-list" aria-label="How Ezra helps the parent">
+          <li class="persona-item benefit">
+            <span class="persona-item-icon" aria-hidden="true">→</span>
+            Simple texts, no app to download, no portal to log into
+          </li>
+          <li class="persona-item benefit">
+            <span class="persona-item-icon" aria-hidden="true">→</span>
+            One-reply trust generation, Medicare switching, and financial alerts
+          </li>
+          <li class="persona-item benefit">
+            <span class="persona-item-icon" aria-hidden="true">→</span>
+            Everything visible to her daughter, never alone in a decision
+          </li>
+        </ul>
+      </div>
+
+      <div class="persona-card fi fi-d2">
+        <div class="persona-tag">The adult child</div>
+        <div class="persona-name">Linda</div>
+        <div class="persona-desc">48 · Working · Caring from a distance</div>
+
+        <p class="persona-block-label problems">What weighs on her</p>
+        <ul class="persona-list" aria-label="Adult child pain points">
+          <li class="persona-item">
+            <span class="persona-item-icon" aria-hidden="true">→</span>
+            Knows her parents need a trust, a Medicare review, and a financial check-up, has no idea how to coordinate it
+          </li>
+          <li class="persona-item">
+            <span class="persona-item-icon" aria-hidden="true">→</span>
+            Zero visibility into her parents' finances, something could slip and she'd never know
+          </li>
+          <li class="persona-item">
+            <span class="persona-item-icon" aria-hidden="true">→</span>
+            Too busy to become an expert, too uncomfortable to keep avoiding it
+          </li>
+          <li class="persona-item">
+            <span class="persona-item-icon" aria-hidden="true">→</span>
+            Doesn't want to pay $5–7K for an attorney until she understands what's actually needed
+          </li>
+        </ul>
+
+        <p class="persona-block-label ezra-helps">How Ezra helps</p>
+        <ul class="persona-list" aria-label="How Ezra helps the adult child">
+          <li class="persona-item benefit">
+            <span class="persona-item-icon" aria-hidden="true">→</span>
+            Full dashboard showing her parents' financial picture in one place
+          </li>
+          <li class="persona-item benefit">
+            <span class="persona-item-icon" aria-hidden="true">→</span>
+            Notified of every action, trusts, Medicare switches, IRMAA alerts, before they happen
+          </li>
+          <li class="persona-item benefit">
+            <span class="persona-item-icon" aria-hidden="true">→</span>
+            Ezra handles coordination, no more nagging, no more guessing, no more guilt
+          </li>
+        </ul>
       </div>
 
     </div>
@@ -765,20 +886,20 @@ html, body {
     <!-- Trust generation -->
     <div class="feature-pair">
       <div class="feature-text fi">
-        <div class="feature-stat">
-          <span class="feature-stat-num">~$300</span>
-          <span class="feature-stat-label">vs. $3–7K through an attorney alone</span>
-        </div>
         <p class="section-eyebrow">Trust generation</p>
         <h3 class="section-headline">A draft trust in minutes, not months.</h3>
-        <p class="feature-body">Upload your parents' 1040-SR and Ezra identifies probate exposure, drafts a revocable trust, and routes it to an attorney for review. 60–70% of homeowning boomer households need one. Most don't have one yet — not from negligence, because no one ever made it easy to act.</p>
+        <p class="feature-body">Share your parents' last tax filing and Ezra identifies probate exposure, drafts a revocable trust, and routes it to an attorney for review. 60–70% of homeowning boomer households need one. Most don't have one yet, not from negligence, because no one ever made it easy to act.</p>
       </div>
       <div class="feature-visual fi fi-d1" aria-label="Trust generation flow">
+        <div class="visual-stat">
+          <span class="visual-stat-num">~$300</span>
+          <span class="visual-stat-label">vs. $3–7K through an attorney alone</span>
+        </div>
         <div class="flow-steps">
           <div class="flow-step">
             <div class="flow-step-num">1</div>
             <div>
-              <div class="flow-step-title">Upload the 1040-SR</div>
+              <div class="flow-step-title">Share your last tax filing</div>
               <div class="flow-step-desc">One tax return contains 90%+ of the financial picture your family needs to act.</div>
             </div>
           </div>
@@ -786,25 +907,15 @@ html, body {
             <div class="flow-step-num">2</div>
             <div>
               <div class="flow-step-title">Ezra scans for exposure</div>
-              <div class="flow-step-desc">Probate risk, beneficiary gaps, gifting opportunities, Medicare proximity — all surfaced in minutes.</div>
+              <div class="flow-step-desc">Probate risk, beneficiary gaps, gifting opportunities, Medicare proximity, all surfaced in minutes.</div>
             </div>
           </div>
           <div class="flow-step">
             <div class="flow-step-num">3</div>
             <div>
               <div class="flow-step-title">Attorney-reviewed trust generated</div>
-              <div class="flow-step-desc">A real revocable trust — reviewed, notarized, protecting your family's assets from probate.</div>
+              <div class="flow-step-desc">A real revocable trust, reviewed, notarized, protecting your family's assets from probate.</div>
             </div>
-          </div>
-        </div>
-        <div class="cost-compare">
-          <div class="cost-block">
-            <div class="cost-amount strike">$3–7K</div>
-            <div class="cost-label">Attorney alone</div>
-          </div>
-          <div class="cost-block">
-            <div class="cost-amount">~$300</div>
-            <div class="cost-label">Through Ezra</div>
           </div>
         </div>
       </div>
@@ -813,23 +924,23 @@ html, body {
     <!-- Medicare management -->
     <div class="feature-pair flip">
       <div class="feature-text fi">
-        <div class="feature-stat">
-          <span class="feature-stat-num">$340+</span>
-          <span class="feature-stat-label">average annual savings from a single plan review</span>
-        </div>
         <p class="section-eyebrow">Medicare management</p>
         <h3 class="section-headline">One reply. Recurring savings, every year.</h3>
-        <p class="feature-body">Ezra monitors Medicare plans year-round, alerts your family before open enrollment closes, and switches plans in a single text. It also tracks IRMAA proximity — one dollar over the threshold can trigger a $2,000+ annual surcharge that most families never see coming.</p>
+        <p class="feature-body">Ezra monitors Medicare plans year-round, alerts your family before open enrollment closes, and switches plans in a single text. It also tracks IRMAA proximity, one dollar over the threshold can trigger a $2,000+ annual surcharge that most families never see coming.</p>
       </div>
       <div class="feature-visual fi fi-d1" aria-label="Medicare SMS scenario">
+        <div class="visual-stat">
+          <span class="visual-stat-num">$340+</span>
+          <span class="visual-stat-label">average annual savings from a single plan review</span>
+        </div>
         <div class="sms-card">
-          <div class="sms-label">Ezra · Family Group · Margaret, Linda</div>
+          <div class="sms-label">Ezra · Family Group · Elena, Linda</div>
           <div class="sms-msg">
             <div class="sms-sender">Ezra</div>
-            <div class="sms-bubble ezra">Hi Margaret — Medicare open enrollment closes Dec 7th. Your current Part D plan renews at $67/month. I found identical coverage at $39/month — saving you $340/year. Reply YES to switch, NO to keep your current plan.</div>
+            <div class="sms-bubble ezra">Hi Elena, Medicare open enrollment closes Dec 7th. Your current Part D plan renews at $67/month. I found identical coverage at $39/month, saving you $340/year. Reply YES to switch, NO to keep your current plan.</div>
           </div>
           <div class="sms-msg right">
-            <div class="sms-sender">Margaret</div>
+            <div class="sms-sender">Elena</div>
             <div class="sms-bubble parent">YES</div>
           </div>
           <div class="sms-msg">
@@ -847,28 +958,28 @@ html, body {
     <!-- Financial co-pilot -->
     <div class="feature-pair">
       <div class="feature-text fi">
-        <div class="feature-stat">
-          <span class="feature-stat-num">$180K</span>
-          <span class="feature-stat-label">average preventable loss per family from missed planning</span>
-        </div>
         <p class="section-eyebrow">Financial co-pilot</p>
         <h3 class="section-headline">Always on. For the whole family.</h3>
-        <p class="feature-body">RMD deadlines, Roth conversion windows, beneficiary designations, gifting exclusions — Ezra monitors these year-round and surfaces alerts before anything slips. Your parents get a simple text. You get a full dashboard. Everyone stays coordinated without anyone having to coordinate.</p>
+        <p class="feature-body">RMD deadlines, Roth conversion windows, beneficiary designations, gifting exclusions, Ezra monitors these year-round and surfaces alerts before anything slips. Your parents get a simple text. You get a full dashboard. Everyone stays coordinated without anyone having to coordinate.</p>
       </div>
       <div class="feature-visual fi fi-d1" aria-label="Financial monitoring features">
+        <div class="visual-stat">
+          <span class="visual-stat-num">$180K</span>
+          <span class="visual-stat-label">average preventable loss per family from missed planning</span>
+        </div>
         <div class="monitor-list">
           <div class="monitor-item">
             <div class="monitor-check">→</div>
             <div>
               <div class="monitor-title">RMD deadline monitoring</div>
-              <div class="monitor-desc">25% IRS penalty if missed. Ezra flags it with enough time to act — before December, not on December 30th.</div>
+              <div class="monitor-desc">25% IRS penalty if missed. Ezra flags it with enough time to act, before December, not on December 30th.</div>
             </div>
           </div>
           <div class="monitor-item">
             <div class="monitor-check">→</div>
             <div>
               <div class="monitor-title">Beneficiary alignment</div>
-              <div class="monitor-desc">Beneficiary designations override the will — silently. Ezra checks they still reflect your family structure.</div>
+              <div class="monitor-desc">Beneficiary designations override the will, silently. Ezra checks they still reflect your family structure.</div>
             </div>
           </div>
           <div class="monitor-item">
@@ -886,110 +997,9 @@ html, body {
             </div>
           </div>
         </div>
-        <div class="monitor-price">Ongoing monitoring from <strong>$29 / month.</strong></div>
       </div>
     </div>
 
-  </div>
-</section>
-
-<!-- PERSONAS — side by side -->
-<section id="for-families" class="personas-section">
-  <div class="wrap">
-
-    <div class="personas-head fi">
-      <p class="section-eyebrow">Built for both of you</p>
-      <h2 class="section-headline">Two interfaces. One family.</h2>
-      <p class="personas-sub">Ezra works across two generations — the parent navigating retirement and the adult child trying to help without overstepping.</p>
-    </div>
-
-    <div class="personas-grid">
-
-      <div class="persona-card fi fi-d1">
-        <div class="persona-tag">The parent</div>
-        <div class="persona-name">Margaret</div>
-        <div class="persona-desc">65 · Retired homeowner · Has assets, no plan</div>
-
-        <p class="persona-block-label problems">What weighs on her</p>
-        <ul class="persona-list" aria-label="Parent pain points">
-          <li class="persona-item">
-            <span class="persona-item-icon" aria-hidden="true">—</span>
-            Has a home and retirement accounts, but no trust — never knew where to start
-          </li>
-          <li class="persona-item">
-            <span class="persona-item-icon" aria-hidden="true">—</span>
-            Medicare decisions feel overwhelming and seem to change every year
-          </li>
-          <li class="persona-item">
-            <span class="persona-item-icon" aria-hidden="true">—</span>
-            Doesn't want to burden her kids, but can't navigate attorneys and advisors alone
-          </li>
-          <li class="persona-item">
-            <span class="persona-item-icon" aria-hidden="true">—</span>
-            Doesn't use apps — wants something that works how she already communicates
-          </li>
-        </ul>
-
-        <p class="persona-block-label ezra-helps">How Ezra helps</p>
-        <ul class="persona-list" aria-label="How Ezra helps the parent">
-          <li class="persona-item benefit">
-            <span class="persona-item-icon" aria-hidden="true">→</span>
-            Simple texts — no app to download, no portal to log into
-          </li>
-          <li class="persona-item benefit">
-            <span class="persona-item-icon" aria-hidden="true">→</span>
-            One-reply trust generation, Medicare switching, and financial alerts
-          </li>
-          <li class="persona-item benefit">
-            <span class="persona-item-icon" aria-hidden="true">→</span>
-            Everything visible to her daughter — never alone in a decision
-          </li>
-        </ul>
-      </div>
-
-      <div class="persona-card fi fi-d2">
-        <div class="persona-tag">The adult child</div>
-        <div class="persona-name">Linda</div>
-        <div class="persona-desc">48 · Working · Caring from a distance</div>
-
-        <p class="persona-block-label problems">What weighs on her</p>
-        <ul class="persona-list" aria-label="Adult child pain points">
-          <li class="persona-item">
-            <span class="persona-item-icon" aria-hidden="true">—</span>
-            Knows her parents need a trust, a Medicare review, and a financial check-up — has no idea how to coordinate it
-          </li>
-          <li class="persona-item">
-            <span class="persona-item-icon" aria-hidden="true">—</span>
-            Zero visibility into her parents' finances — something could slip and she'd never know
-          </li>
-          <li class="persona-item">
-            <span class="persona-item-icon" aria-hidden="true">—</span>
-            Too busy to become an expert, too uncomfortable to keep avoiding it
-          </li>
-          <li class="persona-item">
-            <span class="persona-item-icon" aria-hidden="true">—</span>
-            Doesn't want to pay $5–7K for an attorney until she understands what's actually needed
-          </li>
-        </ul>
-
-        <p class="persona-block-label ezra-helps">How Ezra helps</p>
-        <ul class="persona-list" aria-label="How Ezra helps the adult child">
-          <li class="persona-item benefit">
-            <span class="persona-item-icon" aria-hidden="true">→</span>
-            Full dashboard showing her parents' financial picture in one place
-          </li>
-          <li class="persona-item benefit">
-            <span class="persona-item-icon" aria-hidden="true">→</span>
-            Notified of every action — trusts, Medicare switches, IRMAA alerts — before they happen
-          </li>
-          <li class="persona-item benefit">
-            <span class="persona-item-icon" aria-hidden="true">→</span>
-            Ezra handles coordination — no more nagging, no more guessing, no more guilt
-          </li>
-        </ul>
-      </div>
-
-    </div>
   </div>
 </section>
 
@@ -997,34 +1007,19 @@ html, body {
 <section id="waitlist" class="waitlist-section">
   <div class="wrap">
     <h2 class="waitlist-headline fi">Ready to give your family a plan?</h2>
-    <p class="waitlist-sub fi fi-d1">Join the waitlist. We'll reach out when Ezra is ready for your family.</p>
+    <p class="waitlist-sub fi fi-d1">We'll reach out when Ezra is ready for your family.</p>
     <form class="waitlist-form fi fi-d2" id="waitlist-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
       <input class="input-field" type="email" name="email" placeholder="Your email address" required aria-label="Email address">
       <button class="btn-primary" type="submit">Join waitlist</button>
     </form>
-    <p class="waitlist-note fi fi-d3">No spam. No pitch deck. Just a heads-up when we're ready.</p>
+    <p class="waitlist-note fi fi-d3">No spam. Just a heads-up when we're ready.</p>
   </div>
 </section>
 
-<!-- FOOTER — Ft5 Statement -->
+<!-- FOOTER -->
 <footer class="footer">
   <div class="wrap">
-    <div class="footer-top fi">
-      <p class="footer-statement">Finally, a plan the whole family can trust.</p>
-      <a href="#waitlist" class="btn-footer">Join waitlist</a>
-    </div>
-    <div class="footer-bottom">
-      <div class="footer-brand">Ezra</div>
-      <div class="footer-demos" aria-label="Demo links">
-        <a href="discovery.html">Discovery demo</a>
-        <a href="deck.html">Pitch deck</a>
-      </div>
-      <ul class="footer-links" aria-label="Footer links">
-        <li><a href="mailto:baishi@gmail.com">Contact</a></li>
-        <li><a href="#">Privacy</a></li>
-      </ul>
-      <p class="footer-copy">© 2026 Ezra</p>
-    </div>
+    <p class="footer-copy">© 2026 Ezra</p>
   </div>
 </footer>
 
@@ -1065,7 +1060,7 @@ function handleForm(form) {
     if (formId === 'YOUR_FORM_ID') {
       // Fake success for demo
       await new Promise(r => setTimeout(r, 800));
-      showToast('You\'re on the list — we\'ll be in touch.');
+      showToast('You\'re on the list, we\'ll be in touch.');
       form.reset();
     } else {
       try {
@@ -1075,7 +1070,7 @@ function handleForm(form) {
           body: JSON.stringify({ email })
         });
         if (res.ok) {
-          showToast('You\'re on the list — we\'ll be in touch.');
+          showToast('You\'re on the list, we\'ll be in touch.');
           form.reset();
         } else {
           showToast('Something went wrong. Try again.');
